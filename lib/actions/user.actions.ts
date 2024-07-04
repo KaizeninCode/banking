@@ -26,9 +26,9 @@ export const signIn = async ({email, password}: signInProps) => {
     }
 }
 
-export const signUp = async (userData: SignUpParams) => {
+export const signUp = async ({password, ...userData}: SignUpParams) => {
     
-    const {email, password, firstName, lastName} = userData
+    const {email, firstName, lastName} = userData
 
     let newUserAcc
 
@@ -109,10 +109,10 @@ export async function getLoggedInUser() {
             user: {
                 client_user_id: user.$id
             },
-            client_name: user.name,
+            client_name: `${user.firstName} ${user.lastName}`,
             products: ['auth'] as Products[],
             language: 'en',
-            country_codes: ['KE', 'US'] as CountryCode[],
+            country_codes: ['CA', 'US'] as CountryCode[],
         }
 
         const response = await plaidClient.linkTokenCreate(tokenParams)
